@@ -1,5 +1,11 @@
+{% extends "isodatabank/base.html" %}
+
+{% block title %}Upload Isotope Data{% endblock %}
+
+{% block content %}
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Upload">
 </form>
+{% endblock %}

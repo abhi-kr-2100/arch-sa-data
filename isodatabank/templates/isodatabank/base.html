@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>{% block title %}South Asian Archaeology - Isotope Data{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">South Asian Archaeology - Isotope Data</a></h1>
+        <a href="{% url 'upload' %}">Upload</a>
+        <a href="{% url 'browse' %}">Browse</a>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
