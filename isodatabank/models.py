@@ -74,7 +74,7 @@ class IsotopeInfo(models.Model):
 
 class PublicationInfo(models.Model):
     author = models.CharField(max_length=100)
-    year = models.IntegerField(min_value=1000, max_value=9999)
+    year = models.IntegerField()
     article_title = models.CharField(max_length=500)
     journal = models.CharField(max_length=100)
     volume = models.CharField(max_length=100)
