@@ -16,9 +16,22 @@ class UploadDataView(FormView):
     form_class = DataForm
     success_url = '/'
 
-    def form_valid(self, form):
-        return super().form_valid(form)
+    def add_to_db(self, file):
+        pass
 
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        file = request.FILES['tilia_template_file']
+        if form.is_valid():
+            try:
+                self.add_to_db(file)
+            except Exception:
+                return self.form_invalid(form)
+                
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 class DataListView(ListView):
     model = Data
