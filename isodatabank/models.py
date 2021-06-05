@@ -25,8 +25,11 @@ class AuthorInformation(models.Model):
 
 class ValidationInformation(models.Model):
     validated = models.BooleanField(default=False)
+    submission_by = models.CharField(max_length=100)
+    email = models.EmailField()
 
     dataset_id = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.validated
+        s = 'Submitted by {} ({})'.format(self.submission_by, self.email)
+        return s + ' (validated)' if self.validated else s + ' (unvalidated)'
