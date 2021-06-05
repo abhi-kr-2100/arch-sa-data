@@ -1,3 +1,4 @@
+from typing import SupportsRound
 from django.db import models
 
 
@@ -101,3 +102,9 @@ class ContactInfo(models.Model):
     url = models.URLField()
     address = models.TextField()
     notes = models.TextField()
+
+class ValidationInfo(models.Model):
+    validated = models.BooleanField(default=False)
+
+    # identifies which Tilia form this model is associated with
+    source_id = models.CharField(max_length=100, editable=False)
