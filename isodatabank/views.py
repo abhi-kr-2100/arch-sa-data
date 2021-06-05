@@ -22,10 +22,12 @@ class UploadDataView(FormView):
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        file = request.FILES['tilia_template_file']
+        
+        tilia_file = request.FILES['tilia_template_file']
+
         if form.is_valid():
             try:
-                self.add_to_db(file)
+                self.add_to_db(tilia_file)
             except Exception:
                 return self.form_invalid(form)
                 
