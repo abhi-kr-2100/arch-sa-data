@@ -104,6 +104,8 @@ class ContactInfo(models.Model):
     notes = models.TextField()
 
 class ValidationInfo(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
     validated = models.BooleanField(default=False)
 
     # identifies which Tilia form this model is associated with
