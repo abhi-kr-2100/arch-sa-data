@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
-from .forms import DataForm
+from .forms import TiliaTemplateUploadForm
 from .models import Data
 
 
@@ -13,7 +13,7 @@ class HomePageView(TemplateView):
 
 class UploadDataView(FormView):
     template_name = "isodatabank/upload_data.html"
-    form_class = DataForm
+    form_class = TiliaTemplateUploadForm
     success_url = '/upload/success/'
 
     def add_to_db(self, file):
