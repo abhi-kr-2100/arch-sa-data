@@ -14,7 +14,7 @@ class HomePageView(TemplateView):
 class UploadDataView(FormView):
     template_name = "isodatabank/upload_data.html"
     form_class = DataForm
-    success_url = '/'
+    success_url = '/upload/success/'
 
     def add_to_db(self, file):
         pass
@@ -32,6 +32,11 @@ class UploadDataView(FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+class UploadSuccessful(TemplateView):
+    template_name = "isodatabank/upload_success.html"
+
 
 class DataListView(ListView):
     model = Data
