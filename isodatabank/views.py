@@ -74,12 +74,11 @@ class UploadSuccessful(TemplateView):
     template_name = "isodatabank/upload_success.html"
 
 
-# class DataListView(ListView):
-#     model = LocationInformation
-#     paginate_by = 100
+class LocationListView(ListView):
+    model = LocationInformation
 
-#     def get_context_data(self, **kwargs):
-#         return {}
+    def get_template_names(self):
+        return 'isodatabank/location_list.html'
 
-class DataListView(TemplateView):
-    template_name = 'isodatabank/home.html'
+    def get_context_data(self, **kwargs):
+        return {'locs': LocationInformation.objects.all()}

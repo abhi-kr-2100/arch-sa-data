@@ -1,0 +1,15 @@
+{% extends "isodatabank/base.html" %}
+
+{% block title %}Isotope Data Search{% endblock %}
+
+{% block content %}
+{% if locs %}
+<ul>
+    {% for l in locs %}
+    <li>{{ l.location_name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="lead">No results found.</p>
+{% endif %}
+{% endblock %}
