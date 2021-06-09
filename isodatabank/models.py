@@ -14,6 +14,15 @@ class LocationInformation(models.Model):
         return self.location_name
 
 
+class TiliaExcelFile(models.Model):
+    data = models.BinaryField()
+
+    dataset_id = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.dataset_id
+
+
 class AuthorInformation(models.Model):
     name = models.CharField(max_length=100)
     

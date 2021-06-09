@@ -1,5 +1,5 @@
 from time import time
-from django.db import models
+from pickle import dumps
 
 from openpyxl import load_workbook
 
@@ -8,7 +8,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
 from .forms import TiliaTemplateUploadForm
-from .models import LocationInformation, ValidationInformation
+from .models import LocationInformation, ValidationInformation, TiliaExcelFile
 
 
 class HomePageView(TemplateView):
@@ -24,7 +24,8 @@ class UploadDataView(FormView):
         """Add uploaded data to isodatabank's database."""
 
         dataset_id = str(time())
-        bg_info = load_workbook(file).worksheets[0]
+        tilia_workbook = load_workbook(file)
+        bg_info = tilia_workbook.worksheets[0]
 
         validation_info = ValidationInformation(
             submission_by=name, email=email,
@@ -42,9 +43,11 @@ class UploadDataView(FormView):
             dataset_id=dataset_id
         )
 
+        excel_data = TiliaExcelFile(data=dumps(tilia_workbook), dataset_id=dataset_id)
+
+        excel_data.save()
         validation_info.save()
         location_info.save()
-        
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
