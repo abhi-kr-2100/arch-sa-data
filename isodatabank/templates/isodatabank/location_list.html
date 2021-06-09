@@ -15,9 +15,10 @@
         let infoWins = [];
 
         {% for l in locs %}
+        infoContent = "<b>{{ l.location_name }}</b><br><p>{{ l.description }}</p>"
         infoWins.push(
             new google.maps.InfoWindow({
-                content: "{{ l.location_name }}",
+                content: infoContent,
             })
         );
 
