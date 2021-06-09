@@ -1,7 +1,6 @@
 from time import time
 from tempfile import NamedTemporaryFile
 from pickle import dumps, loads
-from io import BytesIO
 
 from openpyxl import load_workbook
 
