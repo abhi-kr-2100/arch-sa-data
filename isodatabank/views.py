@@ -1,11 +1,16 @@
 from time import time
-from pickle import dumps
+from tempfile import NamedTemporaryFile
+from pickle import dumps, loads
+from io import BytesIO
 
 from openpyxl import load_workbook
 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from .forms import TiliaTemplateUploadForm
 from .models import LocationInformation, ValidationInformation, TiliaExcelFile
@@ -85,3 +90,19 @@ class LocationListView(ListView):
             locs += LocationInformation.objects.filter(dataset_id=v.dataset_id)
 
         return {'locs': locs}
+
+
+def download_view(request, dataset_id):
+    dataset = get_object_or_404(TiliaExcelFile, dataset_id=dataset_id)
+    data = loads(dataset.data)
+
+    with NamedTemporaryFile() as download_file:
+        data.save(download_file.name)
+        
+        resp = HttpResponse(
+            download_file,
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        resp['Content-Disposition'] = 'attachment; filename={}.xlsx'.format(dataset_id)
+
+        return resp

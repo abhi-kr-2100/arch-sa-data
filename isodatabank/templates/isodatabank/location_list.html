@@ -15,7 +15,13 @@
         let infoWins = [];
 
         {% for l in locs %}
-        infoContent = "<b>{{ l.location_name }}</b><br><p>{{ l.description }}</p>"
+        infoContent = `
+            <b>{{ l.location_name }}</b><br>
+            <p>{{ l.description }}</p><br>
+            <a href="{% url 'download' l.dataset_id %}">
+                Download data (in .xlsx format)
+            </a>
+        `
         infoWins.push(
             new google.maps.InfoWindow({
                 content: infoContent,
