@@ -1,11 +1,13 @@
 from time import time
 
+from openpyxl import load_workbook
+
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
 from .forms import TiliaTemplateUploadForm
-from .models import LocationInformation, AuthorInformation, ValidationInformation
+from .models import LocationInformation, ValidationInformation
 
 
 class HomePageView(TemplateView):
@@ -21,33 +23,25 @@ class UploadDataView(FormView):
         """Add uploaded data to isodatabank's database."""
 
         dataset_id = str(time())
-        lines = file.readlines()
+        bg_info = load_workbook(file).worksheets[0]
 
         validation_info = ValidationInformation(
             submission_by=name, email=email,
             dataset_id=dataset_id
         )
 
-        location_name = lines[0]
-        description = lines[1]
-        latitude = float(lines[2])
-        longitude = float(lines[3])
-
-        authors = lines[4:]
+        location_name = str(bg_info.cell(1, 2).value).strip()
+        description = str(bg_info.cell(6, 2).value).strip()
+        latitude = float(bg_info.cell(2, 2).value)
+        longitude = float(bg_info.cell(3, 2).value)
 
         location_info = LocationInformation(
             location_name=location_name, description=description,
             latitude=latitude, longitude=longitude,
             dataset_id=dataset_id
         )
-        
-        author_info_list = []
-        for a in authors:
-            author_info_list.append(AuthorInformation(name=a, dataset_id=dataset_id))
 
         validation_info.save()
-        for a in author_info_list:
-            a.save()
         location_info.save()
         
 
