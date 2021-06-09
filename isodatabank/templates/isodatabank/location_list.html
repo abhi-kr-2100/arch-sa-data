@@ -3,7 +3,46 @@
 {% block title %}Isotope Data Search{% endblock %}
 
 {% block content %}
-{% if locs %}
+<script>
+    let map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 41.0082, lng: 28.9784 },
+            zoom: 5,
+        });
+
+        let markers = [];
+        let infoWins = [];
+
+        {% for l in locs %}
+        infoWins.push(
+            new google.maps.InfoWindow({
+                content: "{{ l.location_name }}",
+            })
+        );
+
+        markers.push(
+            new google.maps.Marker({
+                position: { lat: {{ l.latitude }}, lng: {{ l.longitude }} },
+                map: map,
+            })
+        );
+
+        markers[{{ forloop.counter0 }}].addListener("click", () => {
+            infoWins[{{ forloop.counter0 }}].open(map, markers[{{ forloop.counter0 }}])
+        });
+        {% endfor %}
+    }
+</script>
+
+<div class="container" id="map" style="width: 80vw; height: 75vh;"></div>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGFrp4LCdWpymmFIlFJYCH27VaBASxF0Y&callback=initMap&libraries=&v=weekly"
+    async>
+</script>
+
+<!-- {% if locs %}
 <ul>
     {% for l in locs %}
     <li>{{ l.location_name }}</li>
@@ -11,5 +50,5 @@
 </ul>
 {% else %}
 <p class="lead">No results found.</p>
-{% endif %}
+{% endif %} -->
 {% endblock %}
