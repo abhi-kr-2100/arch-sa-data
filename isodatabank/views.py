@@ -1,4 +1,5 @@
 from time import time
+from django.db import models
 
 from openpyxl import load_workbook
 
@@ -75,4 +76,9 @@ class LocationListView(ListView):
         return 'isodatabank/location_list.html'
 
     def get_context_data(self, **kwargs):
-        return {'locs': LocationInformation.objects.all()}
+        validated = ValidationInformation.objects.filter(validated=True)
+        locs = []
+        for v in validated:
+            locs += LocationInformation.objects.filter(dataset_id=v.dataset_id)
+
+        return {'locs': locs}
