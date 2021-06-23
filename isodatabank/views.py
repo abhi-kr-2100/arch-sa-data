@@ -77,6 +77,10 @@ class UploadSuccessful(TemplateView):
 
 
 class LocationListView(ListView):
+    """Show a list of all available and validated locations.
+    
+    Locations are denoted by coordinates."""
+
     model = LocationInformation
 
     def get_template_names(self):
@@ -84,14 +88,17 @@ class LocationListView(ListView):
 
     def get_context_data(self, **kwargs):
         validated = ValidationInformation.objects.filter(validated=True)
-        locs = []
-        for v in validated:
-            locs += LocationInformation.objects.filter(dataset_id=v.dataset_id)
+        locs = [
+            l for v in validated \
+                for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
+        ]
 
         return {'locs': locs}
 
 
 def download_view(request, dataset_id):
+    """Generate an Excel file for download using the given dataset_id."""
+
     dataset = get_object_or_404(TiliaExcelFile, dataset_id=dataset_id)
     data = loads(dataset.data)
 
