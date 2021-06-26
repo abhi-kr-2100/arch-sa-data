@@ -19,6 +19,10 @@ class HomePageView(TemplateView):
     template_name = "isodatabank/home.html"
 
 
+class MoreAboutIsotopes(TemplateView):
+    template_name = "isodatabank/know_more.html"
+
+    
 class UploadDataView(FormView):
     template_name = "isodatabank/upload_data.html"
     form_class = TiliaTemplateUploadForm
