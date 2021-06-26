@@ -22,6 +22,10 @@ class HomePageView(TemplateView):
 class MoreAboutIsotopes(TemplateView):
     template_name = "isodatabank/know_more.html"
 
+
+class RelatedWebsites(TemplateView):
+    template_name = "isodatabank/related.html"
+
     
 class UploadDataView(FormView):
     template_name = "isodatabank/upload_data.html"
