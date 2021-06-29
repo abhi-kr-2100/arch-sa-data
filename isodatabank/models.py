@@ -7,6 +7,7 @@ class LocationInformation(models.Model):
     description = models.TextField()
     latitude = models.FloatField()
     longitude = models.FloatField()
+    original_paper_url = models.URLField()
 
     dataset_id = models.CharField(max_length=50)
 
