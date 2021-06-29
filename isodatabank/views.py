@@ -48,10 +48,12 @@ class UploadDataView(FormView):
         description = str(bg_info.cell(2, 2).value).strip()
         latitude = float(bg_info.cell(3, 2).value)
         longitude = float(bg_info.cell(4, 2).value)
+        original_paper_url = str(bg_info.cell(5, 2).value).strip()
 
         location_info = LocationInformation(
             location_name=location_name, description=description,
             latitude=latitude, longitude=longitude,
+            original_paper_url=original_paper_url,
             dataset_id=dataset_id
         )
 
