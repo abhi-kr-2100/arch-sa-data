@@ -45,9 +45,9 @@ class UploadDataView(FormView):
         )
 
         location_name = str(bg_info.cell(1, 2).value).strip()
-        description = str(bg_info.cell(6, 2).value).strip()
-        latitude = float(bg_info.cell(2, 2).value)
-        longitude = float(bg_info.cell(3, 2).value)
+        description = str(bg_info.cell(2, 2).value).strip()
+        latitude = float(bg_info.cell(3, 2).value)
+        longitude = float(bg_info.cell(4, 2).value)
 
         location_info = LocationInformation(
             location_name=location_name, description=description,
