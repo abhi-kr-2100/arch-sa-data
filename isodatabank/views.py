@@ -49,11 +49,15 @@ class UploadDataView(FormView):
         latitude = float(bg_info.cell(3, 2).value)
         longitude = float(bg_info.cell(4, 2).value)
         original_paper_url = str(bg_info.cell(5, 2).value).strip()
+        archaeological_material_type = str(bg_info.cell(6, 2).value).strip()
+        isotopes = str(bg_info.cell(7, 2).value).strip()
 
         location_info = LocationInformation(
             location_name=location_name, description=description,
             latitude=latitude, longitude=longitude,
             original_paper_url=original_paper_url,
+            archaeological_material_type=archaeological_material_type,
+            isotopes=isotopes,
             dataset_id=dataset_id
         )
 

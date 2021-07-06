@@ -9,6 +9,9 @@ class LocationInformation(models.Model):
     longitude = models.FloatField()
     original_paper_url = models.URLField()
 
+    archaeological_material_type = models.CharField(max_length=100)
+    isotopes = models.CharField(max_length=100)
+
     dataset_id = models.CharField(max_length=50)
 
     def __str__(self):
