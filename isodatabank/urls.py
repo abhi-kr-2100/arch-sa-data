@@ -12,4 +12,5 @@ urlpatterns = [
     path('download/<dataset_id>/', download_view, name='download'),
     path('know_more/', MoreAboutIsotopes.as_view(), name='know_more'),
     path('related/', RelatedWebsites.as_view(), name='related'),
+    path('references/', ReferencesListView.as_view(), name='references'),
 ]

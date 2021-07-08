@@ -110,6 +110,24 @@ class LocationListView(ListView):
         return {'locs': locs}
 
 
+class ReferencesListView(ListView):
+    """Show a list of all added research paper."""
+
+    model = LocationInformation
+
+    def get_template_names(self):
+        return 'isodatabank/references.html'
+
+    def get_context_data(self, **kwargs):
+        validated = ValidationInformation.objects.filter(validated=True)
+        locs = [
+            l for v in validated \
+                for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
+        ]
+
+        return {'locs': locs}
+
+
 def download_view(request, dataset_id):
     """Generate an Excel file for download using the given dataset_id."""
 

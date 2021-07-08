@@ -1,0 +1,13 @@
+{% extends "isodatabank/base.html" %}
+
+{% block title %}References{% endblock %}
+
+{% block content %}
+<ul>
+{% for l in locs %}
+    <li>
+        <a href="{{ l.original_paper_url }}">{{ l.original_paper_url }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
