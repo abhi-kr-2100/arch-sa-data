@@ -133,6 +133,7 @@ def download_view(request, dataset_id):
 
     dataset = get_object_or_404(TiliaExcelFile, dataset_id=dataset_id)
     data = loads(dataset.data)
+    location_name = str(data.worksheets[0].cell(1, 2).value).strip()
 
     with NamedTemporaryFile() as download_file:
         data.save(download_file.name)
@@ -141,6 +142,6 @@ def download_view(request, dataset_id):
             download_file,
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-        resp['Content-Disposition'] = 'attachment; filename={}.xlsx'.format(dataset_id)
+        resp['Content-Disposition'] = 'attachment; filename={}.xlsx'.format(location_name)
 
         return resp
