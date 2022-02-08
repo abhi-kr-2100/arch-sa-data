@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class IsodatabankConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'isodatabank'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "isodatabank"

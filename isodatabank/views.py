@@ -26,11 +26,11 @@ class MoreAboutIsotopes(TemplateView):
 class RelatedWebsites(TemplateView):
     template_name = "isodatabank/related.html"
 
-    
+
 class UploadDataView(FormView):
     template_name = "isodatabank/upload_data.html"
     form_class = TiliaTemplateUploadForm
-    success_url = '/upload/success/'
+    success_url = "/upload/success/"
 
     def add_to_db(self, name, email, file):
         """Add uploaded data to isodatabank's database."""
@@ -40,8 +40,7 @@ class UploadDataView(FormView):
         bg_info = tilia_workbook.worksheets[0]
 
         validation_info = ValidationInformation(
-            submission_by=name, email=email,
-            dataset_id=dataset_id
+            submission_by=name, email=email, dataset_id=dataset_id
         )
 
         location_name = str(bg_info.cell(1, 2).value).strip()
@@ -53,12 +52,14 @@ class UploadDataView(FormView):
         isotopes = str(bg_info.cell(7, 2).value).strip()
 
         location_info = LocationInformation(
-            location_name=location_name, description=description,
-            latitude=latitude, longitude=longitude,
+            location_name=location_name,
+            description=description,
+            latitude=latitude,
+            longitude=longitude,
             original_paper_url=original_paper_url,
             archaeological_material_type=archaeological_material_type,
             isotopes=isotopes,
-            dataset_id=dataset_id
+            dataset_id=dataset_id,
         )
 
         excel_data = TiliaExcelFile(data=dumps(tilia_workbook), dataset_id=dataset_id)
@@ -70,17 +71,17 @@ class UploadDataView(FormView):
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        
-        name = request.POST['name']
-        email = request.POST['email']
-        tilia_file = request.FILES['tilia_template_file']
+
+        name = request.POST["name"]
+        email = request.POST["email"]
+        tilia_file = request.FILES["tilia_template_file"]
 
         if form.is_valid():
             try:
                 self.add_to_db(name, email, tilia_file)
             except Exception:
                 return self.form_invalid(form)
-                
+
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -92,22 +93,23 @@ class UploadSuccessful(TemplateView):
 
 class LocationListView(ListView):
     """Show a list of all available and validated locations.
-    
+
     Locations are denoted by coordinates."""
 
     model = LocationInformation
 
     def get_template_names(self):
-        return 'isodatabank/location_list.html'
+        return "isodatabank/location_list.html"
 
     def get_context_data(self, **kwargs):
         validated = ValidationInformation.objects.filter(validated=True)
         locs = [
-            l for v in validated \
-                for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
+            l
+            for v in validated
+            for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
         ]
 
-        return {'locs': locs}
+        return {"locs": locs}
 
 
 class ReferencesListView(ListView):
@@ -116,16 +118,17 @@ class ReferencesListView(ListView):
     model = LocationInformation
 
     def get_template_names(self):
-        return 'isodatabank/references.html'
+        return "isodatabank/references.html"
 
     def get_context_data(self, **kwargs):
         validated = ValidationInformation.objects.filter(validated=True)
         locs = [
-            l for v in validated \
-                for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
+            l
+            for v in validated
+            for l in LocationInformation.objects.filter(dataset_id=v.dataset_id)
         ]
 
-        return {'locs': locs}
+        return {"locs": locs}
 
 
 def download_view(request, dataset_id):
@@ -137,11 +140,13 @@ def download_view(request, dataset_id):
 
     with NamedTemporaryFile() as download_file:
         data.save(download_file.name)
-        
+
         resp = HttpResponse(
             download_file,
-            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
-        resp['Content-Disposition'] = 'attachment; filename={}.xlsx'.format(location_name)
+        resp["Content-Disposition"] = "attachment; filename={}.xlsx".format(
+            location_name
+        )
 
         return resp

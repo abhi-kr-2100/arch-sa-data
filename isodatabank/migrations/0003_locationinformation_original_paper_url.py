@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('isodatabank', '0002_tiliaexcelfile'),
+        ("isodatabank", "0002_tiliaexcelfile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='locationinformation',
-            name='original_paper_url',
-            field=models.URLField(default=''),
+            model_name="locationinformation",
+            name="original_paper_url",
+            field=models.URLField(default=""),
             preserve_default=False,
         ),
     ]

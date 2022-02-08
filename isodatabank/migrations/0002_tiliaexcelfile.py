@@ -6,16 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('isodatabank', '0001_initial'),
+        ("isodatabank", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TiliaExcelFile',
+            name="TiliaExcelFile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data', models.BinaryField()),
-                ('dataset_id', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("data", models.BinaryField()),
+                ("dataset_id", models.CharField(max_length=50)),
             ],
         ),
     ]

@@ -7,37 +7,60 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='AuthorInformation',
+            name="AuthorInformation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('dataset_id', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("dataset_id", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='LocationInformation',
+            name="LocationInformation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('location_name', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('latitude', models.FloatField()),
-                ('longitude', models.FloatField()),
-                ('dataset_id', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("location_name", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("latitude", models.FloatField()),
+                ("longitude", models.FloatField()),
+                ("dataset_id", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='ValidationInformation',
+            name="ValidationInformation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('validated', models.BooleanField(default=False)),
-                ('submission_by', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254)),
-                ('dataset_id', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("validated", models.BooleanField(default=False)),
+                ("submission_by", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=254)),
+                ("dataset_id", models.CharField(max_length=50)),
             ],
         ),
     ]

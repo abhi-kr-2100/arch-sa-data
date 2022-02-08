@@ -29,7 +29,7 @@ class TiliaExcelFile(models.Model):
 
 class AuthorInformation(models.Model):
     name = models.CharField(max_length=100)
-    
+
     dataset_id = models.CharField(max_length=50)
 
     def __str__(self):
@@ -44,5 +44,5 @@ class ValidationInformation(models.Model):
     dataset_id = models.CharField(max_length=50)
 
     def __str__(self):
-        s = 'Submitted by {} ({})'.format(self.submission_by, self.email)
-        return s + ' (validated)' if self.validated else s + ' (unvalidated)'
+        s = "Submitted by {} ({})".format(self.submission_by, self.email)
+        return s + " (validated)" if self.validated else s + " (unvalidated)"

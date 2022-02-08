@@ -6,20 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('isodatabank', '0003_locationinformation_original_paper_url'),
+        ("isodatabank", "0003_locationinformation_original_paper_url"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='locationinformation',
-            name='archaeological_material_type',
-            field=models.CharField(default='', max_length=100),
+            model_name="locationinformation",
+            name="archaeological_material_type",
+            field=models.CharField(default="", max_length=100),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='locationinformation',
-            name='isotopes',
-            field=models.CharField(default='', max_length=100),
+            model_name="locationinformation",
+            name="isotopes",
+            field=models.CharField(default="", max_length=100),
             preserve_default=False,
         ),
     ]
