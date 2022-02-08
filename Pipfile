@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
-ipython = "*"
 openpyxl = "*"
 
 [dev-packages]
+ipython = "*"
 
 [requires]
 python_version = "3.8"
